@@ -1,0 +1,33 @@
+// use prisma-8
+
+// Contract inferred from the live database schema. Edit as needed, then run `prisma contract emit`.
+model Image {
+  id              Int              @id @default(autoincrement())
+  name            String
+  imageCharacters ImageCharacter[]
+}
+
+model Character {
+  id              Int              @id @default(autoincrement())
+  name            String
+  imageCharacters ImageCharacter[]
+}
+
+model ImageCharacter {
+  id          Int @id @default(autoincrement())
+  imageId     Int
+  characterId Int
+  left        Int
+  right       Int
+  bottom      Int
+  top         Int
+
+  image     Image     @relation(fields: [imageId], references: [id])
+  character Character @relation(fields: [characterId], references: [id])
+}
+
+model Leaderboard {
+  id   Int    @id @default(autoincrement())
+  name String
+  time Int
+}
